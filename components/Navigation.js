@@ -64,14 +64,18 @@ const CounterStackScreen = () =>{
     );
 }
 
-const ProfileStackScreen = () =>{
+const ProfileStackScreen = (props) =>{
+   console.log("ProfileStackScreen",props);
     return(
      <Stack.Navigator
      screenOptions= {{
         headerStyle:{backgroundColor:'#A0CE4E'},
         headerTintColor:'white'}}>
 
-        <Stack.Screen name="Profile" component={Profile} options={{
+        <Stack.Screen name="Profile" 
+        //component={Profile} options={{
+         children={() =><Profile setLoggedInState={props.setLoggedInState}/>}
+         options={{
              headerTitleAlign: "center",
              headerTitleStyle:{
                fontWeight:'bold', 
@@ -132,6 +136,7 @@ const HelpStackScreen = () =>{
 const Tab = createMaterialBottomTabNavigator();
 
 export default function Navigation (props) {
+   console.log("Navigation",props);
     return(
   
         <NavigationContainer>
@@ -172,9 +177,10 @@ export default function Navigation (props) {
                   }}
             />
             <Tab.Screen name="TabProfile" 
-            component={ProfileStackScreen}
+            //component={ProfileStackScreen}
+            children={()=><ProfileStackScreen setLoggedInState={(props.setLoggedInState)}/>}
             options={{
-                // tabBarColor:'pink',
+                // tabBarColor:'pink',]
                    tabBarLabel: 'Profile',
                  tabBarIcon: ({ color }) => (
                   <FontAwesome5 name='user-alt' color={color} size={28}  style={{ width: 30,  height: 30, marginTop: -3 }}/>
